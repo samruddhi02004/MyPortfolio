@@ -1,0 +1,12 @@
+**/node_modules/
+**/dist/
+**/dist-ssr/
+
+# Local scratch assets (not used by app)
+sampleimage/
+
+# OS/editor
+.DS_Store
+Thumbs.db
+desktop.ini
+
