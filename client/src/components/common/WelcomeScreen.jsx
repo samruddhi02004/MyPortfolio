@@ -36,7 +36,7 @@ const WelcomeScreen = ({ onWelcomeComplete }) => {
   };
 
   const currentColors = colors[theme] || colors.dark;
-  const portfolioUrl = "www.devlyhub.in";
+  const portfolioUrl = "https://samruddhi02004.github.io/MyPortfolio/";
   const welcomeMessages = [
     "Crafting digital experiences",
     "Software Engineer",
