@@ -4,6 +4,7 @@ import { TrendingUp, Award, Code, Clock, Target, Zap, Database, Brain } from "lu
 // import { GitHubActivity } from "../components/GitHubActivity.jsx";
 import { projects } from "../constants/projectsData.js";
 import { certificates, coreCompetencies, techStack } from "../constants/aboutData.js";
+import { withBaseUrl } from "../utils/urls.js";
 
 export const StatsSection = () => {
   const ref = useRef(null);
@@ -381,7 +382,7 @@ export const StatsSection = () => {
 
                       <div className="mt-3 flex flex-col sm:flex-row gap-2">
                         <a
-                          href={encodeURI(cert.fileUrl)}
+                          href={encodeURI(withBaseUrl(cert.fileUrl))}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="flex-1 inline-flex items-center justify-center px-3 py-2 rounded-xl bg-primary text-primary-foreground font-semibold transition-all duration-300 hover:bg-primary/90"
@@ -389,7 +390,7 @@ export const StatsSection = () => {
                           View
                         </a>
                         <a
-                          href={encodeURI(cert.fileUrl)}
+                          href={encodeURI(withBaseUrl(cert.fileUrl))}
                           download
                           className="flex-1 inline-flex items-center justify-center px-3 py-2 rounded-xl border border-border bg-background font-semibold transition-all duration-300 hover:bg-accent hover:border-primary/30"
                         >

@@ -3,6 +3,7 @@ import { Code, User, Download, Sparkles, Star, Cloud, Brain, Database } from 'lu
 import { motion, AnimatePresence } from 'framer-motion';
 import { achievements, techStack, features, aboutSocialLinks, tabContent } from '../constants/aboutData.js';
 import { GITHUB_AVATAR_URL } from '../constants/socialUrls.js';
+import { withBaseUrl } from '../utils/urls.js';
 
 export const AboutSection = () => {
   const [activeTab, setActiveTab] = useState('personal');
@@ -76,7 +77,7 @@ export const AboutSection = () => {
       analytics: "/Samruddhi_Gaikwad_Resume_Dataanalytics_Final01.pdf",
     };
 
-    const url = resumeFiles[type] ?? resumeFiles.sde;
+    const url = withBaseUrl(resumeFiles[type] ?? resumeFiles.sde);
     const link = document.createElement('a');
     link.href = encodeURI(url);
     link.download = url.split("/").pop() || "resume.pdf";
@@ -138,7 +139,7 @@ export const AboutSection = () => {
                         className="w-full h-full object-cover"
                         loading="lazy"
                         onError={(e) => {
-                          e.currentTarget.src = "/profile-logo.png";
+                          e.currentTarget.src = withBaseUrl("/profile-logo.png");
                         }}
                       />
                       <div className="absolute -bottom-2 -right-2 w-6 h-6 sm:w-8 sm:h-8 bg-green-500 rounded-full border-4 border-background flex items-center justify-center">

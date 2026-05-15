@@ -4,6 +4,7 @@ import { useRef, useState, useEffect, useMemo } from "react";
 import { codeSnippets, heroContent, socialLinks } from "../constants/heroData.js";
 import { useTypingAnimation, useMultiLineTyping } from "../hooks/useTypingAnimation.js";
 import { GITHUB_URL, LINKEDIN_URL } from "../constants/socialUrls.js";
+import { withBaseUrl } from "../utils/urls.js";
 
 export const HeroSection = () => {
   const ref = useRef(null);
@@ -93,7 +94,7 @@ export const HeroSection = () => {
       analytics: "/Samruddhi_Gaikwad_Resume_Dataanalytics_Final01.pdf",
     };
 
-    const url = resumeFiles[type] ?? resumeFiles.fullstack;
+    const url = withBaseUrl(resumeFiles[type] ?? resumeFiles.fullstack);
     window.open(encodeURI(url), "_blank", "noopener,noreferrer");
     setShowResumeOptions(false);
   };

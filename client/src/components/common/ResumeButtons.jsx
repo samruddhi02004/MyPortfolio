@@ -1,6 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 import { Download, FileText, Brain, BarChart3, ArrowRight } from "lucide-react";
+import { withBaseUrl } from "@/utils/urls.js";
 
 export const ResumeButtons = () => {
   const resumeTypes = [
@@ -45,7 +46,7 @@ export const ResumeButtons = () => {
       className="group"
     >
       <motion.a
-        href={resume.url}
+        href={withBaseUrl(resume.url)}
         download
         className={`glass-card p-8 block hover-lift border-0 relative overflow-hidden group-hover:shadow-2xl`}
         whileHover={{ scale: 1.02 }}

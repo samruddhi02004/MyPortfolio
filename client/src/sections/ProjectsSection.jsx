@@ -3,6 +3,7 @@ import { useState, useRef, useEffect } from "react";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { projects, projectsContent } from "../constants/projectsData.js";
 import { GITHUB_URL } from "../constants/socialUrls.js";
+import { withBaseUrl } from "../utils/urls.js";
 
 const categoryColors = {
   "Data Analytics": "from-emerald-500/20 to-teal-600/20 text-emerald-600 border-emerald-500/30",
@@ -35,7 +36,7 @@ const getGithubRawVideoUrl = (project) => {
 };
 
   const getProjectVideo = (project) => {
-    if (project.video) return project.video;
+    if (project.video) return withBaseUrl(project.video);
     return getGithubRawVideoUrl(project);
   };
 
@@ -236,7 +237,7 @@ export const ProjectsSection = () => {
                   {/* Image/Video Section */}
                   <div className="relative h-48 overflow-hidden">
                     <motion.img
-                      src={project.image}
+                      src={withBaseUrl(project.image)}
                       alt={project.title}
                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                       loading="lazy"
@@ -532,7 +533,7 @@ export const ProjectsSection = () => {
               <div className="aspect-video bg-black">
                 <video
                   ref={videoRef}
-                  poster={selectedVideo.videoPoster ?? selectedVideo.image}
+                  poster={withBaseUrl(selectedVideo.videoPoster ?? selectedVideo.image)}
                   controls
                   autoPlay
                   playsInline
@@ -540,7 +541,7 @@ export const ProjectsSection = () => {
                   onEnded={handleCloseVideo}
                 >
                   <source
-                    src={getProjectVideo(selectedVideo)}
+                    src={withBaseUrl(getProjectVideo(selectedVideo))}
                     type={selectedVideo.videoType ?? "video/mp4"}
                   />
                   Your browser does not support the video tag.
