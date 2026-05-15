@@ -1,18 +1,19 @@
 export const projects = [
    {
-    id: 3,
-    title: "Portfolio Website",
-    description: "Engineered responsive portfolio website using React.js and modern web technologies. Implemented dark mode functionality, optimized performance achieving 95+ Lighthouse score, and integrated contact form with email automation. Deployed on Vercel with CI/CD pipeline.",
-    image: "/projects/portfolio.png",
-    video: "/videos/MyPortfolio.mp4",
-    technologies: ["React.js", "Tailwind CSS", "Framer Motion", "Vite"],
-    features: ["Responsive design", "Dark mode", "Smooth animations", "Contact form"],
-    demoUrl: "#",
-    githubUrl: "https://github.com/samruddhi02004/MyPortfolio",
-    category: "Web Development",
-    status: "Completed",
-    highlights: ["95+ Lighthouse score", "CI/CD pipeline", "Mobile-first design"]
-  },
+  id: 3,
+  title: "Portfolio Website",
+  description: "...",
+  image: "/projects/portfolio.png",
+  videoPath: "/videos/MyPortfolio.mp4",
+  videoPoster: "/projects/portfolio.png",
+  technologies: ["React.js", "Tailwind CSS", "Framer Motion", "Vite"],
+  features: ["Responsive design", "Dark mode", "Smooth animations", "Contact form"],
+  demoUrl: "#",
+  githubUrl: "https://github.com/samruddhi02004/MyPortfolio",
+  category: "Web Development",
+  status: "Completed",
+  highlights: ["95+ Lighthouse score", "CI/CD pipeline", "Mobile-first design"]
+},
   {
     id: 11,
     title: "Appointment Booking System (Full Stack)",
