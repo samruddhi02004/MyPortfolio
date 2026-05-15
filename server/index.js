@@ -82,7 +82,7 @@ app.post("/api/contact", async (req, res) => {
     const safeEmail = email.trim().slice(0, 200);
     const safeMessage = message.trim().slice(0, 4000);
 
-    const subject = `New portfolio message from ${safeName}`;
+    // No subject field for mailto
 
     const text = [
       `Name: ${safeName}`,
@@ -95,7 +95,7 @@ app.post("/api/contact", async (req, res) => {
       from: `"${FROM_NAME}" <${SMTP_USER}>`,
       to: TO_EMAIL,
       replyTo: safeEmail,
-      subject,
+      // subject removed
       text,
     });
 

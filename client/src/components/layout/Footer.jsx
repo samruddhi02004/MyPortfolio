@@ -29,7 +29,6 @@ export const Footer = () => {
 
   const contactInfo = [
     { icon: <Mail size={16} />, text: "gaikwadsamruddhi97@gmail.com", href: "mailto:gaikwadsamruddhi97@gmail.com" },
-
   ];
 
   const containerVariants = {

@@ -1,9 +1,8 @@
 import { GITHUB_URL, LINKEDIN_URL } from "./socialUrls.js";
 
 export const contactInfo = {
-  email: "samruddhi.gaikwad.it@gmail.com",
-  phone: "+91 93151-45594",
-  location: "Bengaluru, India",
+ email: "gaikwadsamruddhi97@gmail.com",
+  location: "Pune, India",
   availability: "Open to software engineering opportunities",
   linkedin: LINKEDIN_URL,
   github: GITHUB_URL
@@ -31,8 +30,7 @@ export const contactFormFields = [
     required: true
   },
   {
-    name: "subject",
-    label: "Subject",
+    // Subject field removed
     type: "text",
     placeholder: "Software Engineering Opportunity",
     required: true

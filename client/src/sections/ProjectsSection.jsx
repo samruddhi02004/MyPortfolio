@@ -566,7 +566,7 @@ export const ProjectsSection = () => {
                       >
                         Visit Live Site
                       </motion.a>
-                    ) : (
+                    ) : (!selectedVideo.video && !selectedVideo.videoPath && !selectedVideo.videoPoster ? (
                       <motion.button
                         type="button"
                         whileHover={{ scale: 1.0 }}
@@ -576,7 +576,7 @@ export const ProjectsSection = () => {
                       >
                         Coming Soon
                       </motion.button>
-                    )}
+                    ) : null)}
                     <motion.a
                       href={getProjectGithubUrl(selectedVideo)}
                       target="_blank"
