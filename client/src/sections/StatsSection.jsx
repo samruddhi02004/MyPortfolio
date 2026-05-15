@@ -57,7 +57,7 @@ export const StatsSection = () => {
     );
 
     const techFromAbout = techStack.flatMap((group) => group.items ?? []);
-    const techFromProjects = projects.flatMap((p) => p.technologies ?? p.techStack ?? []);
+    const techFromProjects = projects.flatMap((p) => p.tags ?? p.techStack ?? p.technologies ?? []);
     const uniqueTech = new Set(
       [...techFromAbout, ...techFromProjects].map((t) => String(t).trim()).filter(Boolean)
     );

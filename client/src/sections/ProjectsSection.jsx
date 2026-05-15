@@ -1,7 +1,7 @@
 import { ArrowRight, ExternalLink, Github, ChevronUp, Star, Code, ChevronDown, MoveRight, Filter, Sparkles, Award, Zap, Play, Eye, Calendar, Users, X } from "lucide-react";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
-import { projects, projectsContent, projectCategories } from "../constants/projectsData.js";
+import { projects, projectsContent } from "../constants/projectsData.js";
 import { GITHUB_URL } from "../constants/socialUrls.js";
 
 const categoryColors = {
@@ -17,6 +17,27 @@ const fallbackAccentColor = "from-primary to-purple-600";
 const getProjectTags = (project) => project.tags ?? project.techStack ?? project.technologies ?? [];
 const getProjectStatus = (project) => project.status ?? "In Progress";
 const getCategoryColor = (category) => categoryColors[category] ?? fallbackCategoryColor;
+const getProjectGithubUrl = (project) => project.githubUrl ?? "#";
+const getGithubRawVideoUrl = (project) => {
+  const videoPath = project.videoPath ?? project.demoVideoPath;
+  if (!videoPath) return null;
+  if (!project.githubUrl || project.githubUrl === "#") return null;
+
+  const match = project.githubUrl.match(/^https?:\/\/github\.com\/([^/]+)\/([^/]+)(?:\/)?$/);
+  if (!match) return null;
+
+  const owner = match[1];
+  const repo = match[2].replace(/\.git$/, "");
+  const branch = project.githubBranch ?? "main";
+  const normalizedPath = String(videoPath).replace(/^[\\/]+/, "");
+
+  return encodeURI(`https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${normalizedPath}`);
+};
+
+  const getProjectVideo = (project) => {
+    if (project.video) return project.video;
+    return getGithubRawVideoUrl(project);
+  };
 
 export const ProjectsSection = () => {
   const [showAll, setShowAll] = useState(false);
@@ -24,6 +45,7 @@ export const ProjectsSection = () => {
   const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
   const [hoveredProject, setHoveredProject] = useState(null);
   const [selectedVideo, setSelectedVideo] = useState(null);
+  const [videoAvailability, setVideoAvailability] = useState(() => ({}));
   const videoRef = useRef(null);
   const sectionRef = useRef(null);
   
@@ -50,6 +72,9 @@ export const ProjectsSection = () => {
   };
 
   const handleVideoPlay = (project) => {
+    const videoUrl = getProjectVideo(project);
+    if (!videoUrl) return;
+    if (videoAvailability[project.id] === false) return;
     setSelectedVideo(project);
   };
 
@@ -60,6 +85,40 @@ export const ProjectsSection = () => {
       videoRef.current.currentTime = 0;
     }
   };
+
+  useEffect(() => {
+    const candidates = displayedProjects.filter((p) => Boolean(getProjectVideo(p)));
+
+    candidates.forEach((project) => {
+      if (Object.prototype.hasOwnProperty.call(videoAvailability, project.id)) return;
+
+      const video = document.createElement("video");
+      video.preload = "metadata";
+      video.muted = true;
+
+      const cleanup = () => {
+        video.onloadedmetadata = null;
+        video.onerror = null;
+        video.removeAttribute("src");
+        video.load();
+      };
+
+      video.onloadedmetadata = () => {
+        cleanup();
+        setVideoAvailability((prev) => ({ ...prev, [project.id]: true }));
+      };
+
+      video.onerror = () => {
+        cleanup();
+        setVideoAvailability((prev) => ({ ...prev, [project.id]: false }));
+      };
+
+      video.src = String(getProjectVideo(project));
+      video.load();
+    });
+  }, [displayedProjects, videoAvailability]);
+
+  const isVideoReady = (project) => videoAvailability[project.id] === true;
 
   const ProjectHighlights = ({ highlights }) => (
     <div className="space-y-2">
@@ -121,7 +180,7 @@ export const ProjectsSection = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
             viewport={{ once: true }}
           >
-            A collection of projects I've built to showcase my skills in full-stack development and modern web technologies.
+            {projectsContent.subtitle}
           </motion.p>
         </motion.div>
 
@@ -208,7 +267,7 @@ export const ProjectsSection = () => {
                       animate={{ opacity: hoveredProject === project.id ? 1 : 0 }}
                     >
                       {/* Video Play Button */}
-                      {project.video ? (
+                      {isVideoReady(project) ? (
                         <motion.button
                           onClick={() => handleVideoPlay(project)}
                           whileHover={{ scale: 1.1 }}
@@ -221,17 +280,17 @@ export const ProjectsSection = () => {
                       
                       {/* Code Button */}
                       <motion.a
-                        href={project.githubUrl}
+                        href={getProjectGithubUrl(project)}
                         target="_blank"
                         rel="noopener noreferrer"
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.9 }}
                         className={`p-3 rounded-full backdrop-blur-sm border transition-all duration-300 ${
-                          project.githubUrl === "#" 
+                          !getProjectGithubUrl(project) || getProjectGithubUrl(project) === "#"
                             ? "bg-gray-500/50 text-gray-300 border-gray-500/30 cursor-not-allowed"
                             : "bg-white/20 text-white border-white/30 hover:bg-white/30"
                         }`}
-                        onClick={(e) => project.githubUrl === "#" && e.preventDefault()}
+                        onClick={(e) => (!getProjectGithubUrl(project) || getProjectGithubUrl(project) === "#") && e.preventDefault()}
                       >
                         <Code size={20} />
                       </motion.a>
@@ -283,35 +342,54 @@ export const ProjectsSection = () => {
 
                     {/* Action Buttons */}
                     <div className="flex gap-3 pt-4 border-t border-border">
-                      <motion.a
-                        href={project.demoUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
-                        className={`flex-1 inline-flex items-center justify-center gap-2 py-2.5 rounded-lg text-sm font-medium transition-all duration-300 ${
-                          project.demoUrl === "#"
-                            ? "bg-muted text-muted-foreground cursor-not-allowed border border-border"
-                            : "bg-primary text-primary-foreground hover:bg-primary/90"
-                        }`}
-                        onClick={(e) => project.demoUrl === "#" && e.preventDefault()}
-                      >
-                        <Eye size={16} />
-                        {project.demoUrl === "#" ? "Coming Soon" : "Live Demo"}
-                      </motion.a>
+                      {isVideoReady(project) ? (
+                        <motion.button
+                          type="button"
+                          onClick={() => handleVideoPlay(project)}
+                          whileHover={{ scale: 1.02 }}
+                          whileTap={{ scale: 0.98 }}
+                          className="flex-1 inline-flex items-center justify-center gap-2 py-2.5 rounded-lg text-sm font-medium transition-all duration-300 bg-primary text-primary-foreground hover:bg-primary/90"
+                        >
+                          <Play size={16} />
+                          Watch Demo
+                        </motion.button>
+                      ) : project.demoUrl && project.demoUrl !== "#" ? (
+                        <motion.a
+                          href={project.demoUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          whileHover={{ scale: 1.02 }}
+                          whileTap={{ scale: 0.98 }}
+                          className="flex-1 inline-flex items-center justify-center gap-2 py-2.5 rounded-lg text-sm font-medium transition-all duration-300 bg-primary text-primary-foreground hover:bg-primary/90"
+                        >
+                          <Eye size={16} />
+                          Live Demo
+                        </motion.a>
+                      ) : (
+                        <motion.button
+                          type="button"
+                          whileHover={{ scale: 1.0 }}
+                          whileTap={{ scale: 1.0 }}
+                          className="flex-1 inline-flex items-center justify-center gap-2 py-2.5 rounded-lg text-sm font-medium border transition-all duration-300 bg-muted text-muted-foreground cursor-not-allowed border-border"
+                          aria-disabled="true"
+                        >
+                          <Calendar size={16} />
+                          Coming Soon
+                        </motion.button>
+                      )}
                       
                       <motion.a
-                        href={project.githubUrl}
+                        href={getProjectGithubUrl(project)}
                         target="_blank"
                         rel="noopener noreferrer"
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
                         className={`inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg text-sm font-medium border transition-all duration-300 ${
-                          project.githubUrl === "#"
+                          !getProjectGithubUrl(project) || getProjectGithubUrl(project) === "#"
                             ? "bg-muted text-muted-foreground cursor-not-allowed border-border"
                             : "bg-background text-foreground border-border hover:border-primary hover:bg-primary/5"
-                        }`}
-                        onClick={(e) => project.githubUrl === "#" && e.preventDefault()}
+                        } flex-1`}
+                        onClick={(e) => (!getProjectGithubUrl(project) || getProjectGithubUrl(project) === "#") && e.preventDefault()}
                       >
                         <Github size={16} />
                         Code
@@ -454,13 +532,17 @@ export const ProjectsSection = () => {
               <div className="aspect-video bg-black">
                 <video
                   ref={videoRef}
-                  src={selectedVideo.video}
                   poster={selectedVideo.videoPoster ?? selectedVideo.image}
                   controls
                   autoPlay
+                  playsInline
                   className="w-full h-full object-contain"
                   onEnded={handleCloseVideo}
                 >
+                  <source
+                    src={getProjectVideo(selectedVideo)}
+                    type={selectedVideo.videoType ?? "video/mp4"}
+                  />
                   Your browser does not support the video tag.
                 </video>
               </div>
@@ -472,33 +554,40 @@ export const ProjectsSection = () => {
                     Watch the demo of {selectedVideo.title} in action
                   </p>
                   <div className="flex gap-3">
+                    {selectedVideo.demoUrl && selectedVideo.demoUrl !== "#" ? (
+                      <motion.a
+                        href={selectedVideo.demoUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="px-6 py-2 rounded-lg text-sm font-medium transition-all duration-300 bg-primary text-primary-foreground hover:bg-primary/90"
+                      >
+                        Visit Live Site
+                      </motion.a>
+                    ) : (
+                      <motion.button
+                        type="button"
+                        whileHover={{ scale: 1.0 }}
+                        whileTap={{ scale: 1.0 }}
+                        className="px-6 py-2 rounded-lg text-sm font-medium border transition-all duration-300 bg-muted text-muted-foreground cursor-not-allowed border-border"
+                        aria-disabled="true"
+                      >
+                        Coming Soon
+                      </motion.button>
+                    )}
                     <motion.a
-                      href={selectedVideo.demoUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      className={`px-6 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
-                        selectedVideo.demoUrl === "#"
-                          ? "bg-muted text-muted-foreground cursor-not-allowed border border-border"
-                          : "bg-primary text-primary-foreground hover:bg-primary/90"
-                      }`}
-                      onClick={(e) => selectedVideo.demoUrl === "#" && e.preventDefault()}
-                    >
-                      Visit Live Site
-                    </motion.a>
-                    <motion.a
-                      href={selectedVideo.githubUrl}
+                      href={getProjectGithubUrl(selectedVideo)}
                       target="_blank"
                       rel="noopener noreferrer"
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                       className={`px-6 py-2 rounded-lg text-sm font-medium border transition-all duration-300 ${
-                        selectedVideo.githubUrl === "#"
+                        !getProjectGithubUrl(selectedVideo) || getProjectGithubUrl(selectedVideo) === "#"
                           ? "bg-muted text-muted-foreground cursor-not-allowed border-border"
                           : "bg-background text-foreground border-border hover:border-primary hover:bg-primary/5"
                       }`}
-                      onClick={(e) => selectedVideo.githubUrl === "#" && e.preventDefault()}
+                      onClick={(e) => (!getProjectGithubUrl(selectedVideo) || getProjectGithubUrl(selectedVideo) === "#") && e.preventDefault()}
                     >
                       View Code
                     </motion.a>

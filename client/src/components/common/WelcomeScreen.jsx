@@ -9,6 +9,14 @@ const WelcomeScreen = ({ onWelcomeComplete }) => {
   const [typedText, setTypedText] = useState("");
   const { theme } = useTheme();
 
+  const welcomeTimingsMs = {
+    phase1: 200,
+    phase2: 450,
+    phase3: 750,
+    exitAfter: 2200,
+    exitAnimation: 450,
+  };
+
   // Theme-based colors
   const colors = {
     light: {
@@ -36,13 +44,13 @@ const WelcomeScreen = ({ onWelcomeComplete }) => {
   ];
 
   useEffect(() => {
-    const phase1 = setTimeout(() => setPhase(1), 200);
-    const phase2 = setTimeout(() => setPhase(2), 450);
-    const phase3 = setTimeout(() => setPhase(3), 750);
+    const phase1 = setTimeout(() => setPhase(1), welcomeTimingsMs.phase1);
+    const phase2 = setTimeout(() => setPhase(2), welcomeTimingsMs.phase2);
+    const phase3 = setTimeout(() => setPhase(3), welcomeTimingsMs.phase3);
     const complete = setTimeout(() => {
       setExitAnimation(true);
-      setTimeout(onWelcomeComplete, 450);
-    }, 1500);
+      setTimeout(onWelcomeComplete, welcomeTimingsMs.exitAnimation);
+    }, welcomeTimingsMs.exitAfter);
 
     return () => {
       clearTimeout(phase1);

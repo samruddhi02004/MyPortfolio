@@ -2,6 +2,7 @@
 import { Code, User, Download, Sparkles, Star, Cloud, Brain, Database } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { achievements, techStack, features, aboutSocialLinks, tabContent } from '../constants/aboutData.js';
+import { GITHUB_AVATAR_URL } from '../constants/socialUrls.js';
 
 export const AboutSection = () => {
   const [activeTab, setActiveTab] = useState('personal');
@@ -131,7 +132,15 @@ export const AboutSection = () => {
                   {/* Profile Image */}
                   <div className="relative flex-shrink-0">
                     <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-2xl overflow-hidden border-4 border-primary/20 shadow-2xl transition-all duration-500 group-hover:border-primary/40 group-hover:scale-105 md:group-hover:scale-110 relative">
-                      <img src="/profile-logo.jpeg" alt="Samruddhi Gaikwad" className="w-full h-full object-cover" />
+                      <img
+                        src={GITHUB_AVATAR_URL}
+                        alt="Samruddhi Gaikwad"
+                        className="w-full h-full object-cover"
+                        loading="lazy"
+                        onError={(e) => {
+                          e.currentTarget.src = "/profile-logo.png";
+                        }}
+                      />
                       <div className="absolute -bottom-2 -right-2 w-6 h-6 sm:w-8 sm:h-8 bg-green-500 rounded-full border-4 border-background flex items-center justify-center">
                         <div className="w-2 h-2 bg-green-300 rounded-full animate-pulse" />
                       </div>
@@ -348,7 +357,7 @@ export const AboutSection = () => {
                 </span>
               </div>
               <div className="text-[10px] sm:text-xs text-muted-foreground text-center bg-background/50 rounded-lg p-1 sm:p-2">
-                âš¡ Response time: Within 24 hours
+                Response time: Within 24 hours
               </div>
             </div>
           </div>

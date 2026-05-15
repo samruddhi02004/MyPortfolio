@@ -1,29 +1,5 @@
 export const projects = [
-  {
-    id: 1,
-    title: "Data Analytics Dashboard",
-    description: "Built comprehensive sales analytics dashboard processing 10K+ daily transactions. Implemented real-time data visualization using React.js and Power BI, reducing reporting time by 75%. Developed SQL queries for complex data aggregation and created interactive filtering system for 50+ business metrics.",
-    image: "/api/placeholder/400/300",
-    technologies: ["React.js", "Power BI", "Python", "SQL"],
-    features: ["Real-time analytics", "Interactive charts", "Data filtering", "Export functionality"],
-    demoUrl: "#",
-    githubUrl: "#",
-    category: "Data Analytics",
-    highlights: ["Processed 10K+ daily transactions", "Reduced reporting time by 75%", "50+ business metrics tracked"]
-  },
-  {
-    id: 2,
-    title: "Machine Learning Predictor",
-    description: "Developed customer churn prediction model achieving 85% accuracy using Python and Scikit-learn. Implemented feature engineering pipeline processing 100K+ customer records, deployed model via Flask API, and created automated evaluation system with precision, recall, and F1-score metrics.",
-    image: "/api/placeholder/400/300",
-    technologies: ["Python", "Scikit-learn", "Pandas", "NumPy"],
-    features: ["Feature engineering", "Model evaluation", "Data preprocessing", "Visualization"],
-    demoUrl: "#",
-    githubUrl: "#",
-    category: "Machine Learning",
-    highlights: ["85% prediction accuracy", "100K+ records processed", "Automated ML pipeline"]
-  },
-  {
+   {
     id: 3,
     title: "Portfolio Website",
     description: "Engineered responsive portfolio website using React.js and modern web technologies. Implemented dark mode functionality, optimized performance achieving 95+ Lighthouse score, and integrated contact form with email automation. Deployed on Vercel with CI/CD pipeline.",
@@ -34,35 +10,39 @@ export const projects = [
     demoUrl: "#",
     githubUrl: "https://github.com/samruddhi02004/MyPortfolio",
     category: "Web Development",
+    status: "Completed",
     highlights: ["95+ Lighthouse score", "CI/CD pipeline", "Mobile-first design"]
   },
   {
-    id: 4,
-    title: "Sales Forecasting System",
-    description: "Created time series forecasting system using TensorFlow to predict sales trends with 90% accuracy. Implemented ARIMA and LSTM models, automated data preprocessing pipeline, and generated monthly forecasts reducing inventory costs by 30%.",
-    image: "/api/placeholder/400/300",
-    technologies: ["Python", "TensorFlow", "Matplotlib", "Jupyter"],
-    features: ["Time series analysis", "Trend prediction", "Data visualization", "Model training"],
+    id: 11,
+    title: "Appointment Booking System (Full Stack)",
+    description: "Designed and developed a scalable, full-stack appointment booking platform with user authentication, business management, and scheduling. Built a responsive, component-driven UI using React, TypeScript, and Vite with protected authentication flows. Engineered RESTful APIs with Express and TypeScript, implementing robust authentication, modular route handlers, and secure business logic. Integrated Drizzle ORM for schema management and automated seeding, ensuring data integrity and scalability. Architected and maintained a monorepo with pnpm workspaces, automating build/test/deployment workflows for both frontend and backend.",
+    image: "https://raw.githubusercontent.com/samruddhi02004/Appointment-Booking-System/main/artifacts/appointment-app/public/opengraph.jpg",
+    videoPath: "Demo/bookslot_end_to_end_demo.mp4",
+    videoPoster: "https://raw.githubusercontent.com/samruddhi02004/Appointment-Booking-System/main/artifacts/appointment-app/public/opengraph.jpg",
+    techStack: ["React", "TypeScript", "Node.js", "Express", "REST APIs", "Drizzle ORM", "pnpm Workspaces", "Monorepo"],
     demoUrl: "#",
-    githubUrl: "#",
-    category: "Data Analytics",
-    highlights: ["90% forecasting accuracy", "30% inventory cost reduction", "ARIMA & LSTM models"]
+    githubUrl: "https://github.com/samruddhi02004/Appointment-Booking-System",
+    category: "Web Development",
+    featured: true,
+    status: "Completed",
+    highlights: ["Protected authentication flows", "REST APIs with modular routes", "Drizzle ORM schema + seeding", "Monorepo via pnpm workspaces"]
   },
   {
-    id: 5,
-    title: "Fake Job Posting Detector",
-    category: "Artificial Intelligence",
-    description: "Developed machine learning classification system to identify fraudulent job postings with 92% accuracy. Implemented natural language processing, feature engineering, and sentiment analysis using Python, Scikit-learn, and NLTK. Created Flask web API for real-time prediction and deployed model with comprehensive testing framework.",
-    image: "/projects/fake-job-detector.png",
-    techStack: ["Python", "Scikit-learn", "NLTK", "Pandas", "Flask"],
-    demoUrl: "#",
-    githubUrl: "https://github.com/samruddhi02004/fake-job-detector",
-    featured: true,
-    keywords: ["Machine Learning", "NLP", "Classification", "Fraud Detection", "Python", "Scikit-learn", "Flask", "Feature Engineering"],
-    tags: ["Python", "Scikit-learn", "NLTK", "Pandas", "Flask", "NLP", "Machine Learning"],
-    status: "Live",
-    highlights: ["92% detection accuracy", "Real-time API deployment", "NLP feature engineering"]
+    id: 13,
+    title: "Chat App",
+    category: "Web Development",
+    description: "Developed a real-time chat application with messaging, user sessions, and responsive UI. Designed for low-latency communication and scalable message delivery using event-driven sockets.",
+    image: "/projects/chat-app.png",
+    videoPath: "Demo/Chat-app.mp4",
+    videoPoster: "/projects/chat-app.png",
+    techStack: ["React", "Node.js", "Express", "Socket.IO", "MongoDB"],
+    demoUrl: "https://github.com/samruddhi02004/chat-app/blob/main/Demo/Chat-app.mp4",
+    githubUrl: "https://github.com/samruddhi02004/chat-app",
+    status: "Completed",
+    highlights: ["Real-time messaging", "User sessions", "Responsive UI"]
   },
+  
   {
     id: 6,
     title: "Interview Emotion Analyzer",
@@ -125,20 +105,120 @@ export const projects = [
     status: "Live",
     highlights: ["Big data processing", "Productivity insights", "REST API development"]
   },
+  
+
+  // Web + AI Projects (added from resume)
   {
-    id: 10,
-    title: "Environmental Data Insight Dashboard",
-    category: "Data Analytics",
-    description: "Engineered real-time environmental monitoring dashboard for air quality and pollution analysis. Implemented data pipeline with Apache Airflow, created interactive visualizations with Tableau, managed time-series data with PostgreSQL, and deployed containerized application with Docker. Processed sensor data and generated environmental insights.",
-    image: "/projects/environmental-dashboard.png",
-    techStack: ["Python", "Tableau", "PostgreSQL", "Apache Airflow", "Docker"],
+    id: 12,
+    title: "Collab Whiteboard",
+    category: "Web Development",
+    description: "Built a real-time collaborative whiteboard for multi-user drawing and brainstorming. Implemented live sync for strokes and board state, user presence, and a clean canvas-based UI designed for fast interaction.",
+    image: "/api/placeholder/400/300",
+    videoPath: "Demo/demo.mp4",
+    videoPoster: "/api/placeholder/400/300",
+    techStack: ["React", "Node.js", "Socket.IO", "Canvas API", "Express"],
     demoUrl: "#",
-    githubUrl: "https://github.com/samruddhi02004/environmental-dashboard",
-    featured: true,
-    keywords: ["Environmental Analytics", "Tableau", "PostgreSQL", "Apache Airflow", "Docker", "Python", "Real-time Data", "IoT", "Data Pipeline"],
-    tags: ["Python", "Tableau", "PostgreSQL", "Apache Airflow", "Docker", "IoT"],
+    githubUrl: "https://github.com/samruddhi02004/Collab-Whiteboard",
     status: "Live",
-    highlights: ["Real-time monitoring", "IoT sensor integration", "Containerized deployment"]
+    highlights: ["Real-time collaboration", "Canvas drawing tools", "Room-based sessions"]
+  },
+  
+  {
+    id: 14,
+    title: "MERN E-Commerce",
+    category: "Web Development",
+    description: "Created a full-stack e-commerce platform with product browsing, cart flow, and admin-ready structure. Implemented reusable UI components and backend APIs for core commerce operations.",
+    image: "/api/placeholder/400/300",
+    videoPath: "Demo/demo.mp4",
+    videoPoster: "/api/placeholder/400/300",
+    techStack: ["MongoDB", "Express", "React", "Node.js", "REST APIs"],
+    demoUrl: "#",
+    githubUrl: "https://github.com/samruddhi02004/MERN_ECOMMERCE",
+    status: "Live",
+    highlights: ["Product + cart flow", "RESTful backend", "Scalable MERN structure"]
+  },
+  {
+    id: 15,
+    title: "Image Captioning",
+    category: "Artificial Intelligence",
+    description: "Implemented an image captioning pipeline to generate natural-language descriptions for images. Combined computer vision feature extraction with sequence modeling to produce fluent captions.",
+    image: "/api/placeholder/400/300",
+    videoPath: "Demo/demo.mp4",
+    videoPoster: "/api/placeholder/400/300",
+    techStack: ["Python", "TensorFlow/Keras", "NumPy", "Pandas", "Computer Vision"],
+    demoUrl: "#",
+    githubUrl: "https://github.com/samruddhi02004/image-Captioning",
+    status: "Live",
+    highlights: ["Vision + NLP pipeline", "Sequence-based caption generation", "Dataset preprocessing"]
+  },
+  {
+    id: 16,
+    title: "Fake News Recognition",
+    category: "Artificial Intelligence",
+    description: "Built an NLP-based classifier to detect fake vs. real news using text preprocessing and supervised learning. Evaluated models with standard classification metrics and optimized the feature pipeline for better generalization.",
+    image: "/api/placeholder/400/300",
+    videoPath: "Demo/demo.mp4",
+    videoPoster: "/api/placeholder/400/300",
+    techStack: ["Python", "Scikit-learn", "NLTK", "Pandas", "NLP"],
+    demoUrl: "#",
+    githubUrl: "https://github.com/samruddhi02004/Fake_News_Recognition",
+    status: "Live",
+    highlights: ["Text preprocessing pipeline", "Supervised classification", "Precision/recall evaluation"]
+  },
+  {
+    id: 17,
+    title: "Face Recognition Attendance System",
+    category: "Artificial Intelligence",
+    description: "Developed an attendance system that marks presence using face detection and recognition. Implemented image capture, face encoding, and recognition-based logging to streamline attendance tracking.",
+    image: "/api/placeholder/400/300",
+    videoPath: "Demo/demo.mp4",
+    videoPoster: "/api/placeholder/400/300",
+    techStack: ["Python", "OpenCV", "Face Recognition", "Computer Vision", "Data Logging"],
+    demoUrl: "#",
+    githubUrl: "https://github.com/samruddhi02004/face-recognition-attendance-system",
+    status: "Live",
+    highlights: ["Face detection + recognition", "Automated attendance logging", "Dataset capture workflow"]
+  },
+
+  // Data Analytics Projects (added from resume)
+  {
+    id: 18,
+    title: "Customer Trends Data Analysis",
+    category: "Data Analytics",
+    description: "Built an end-to-end analytics workflow with data cleaning, SQL analysis, KPI tracking, and interactive dashboards. Analyzed customer purchasing behavior and sales trends to generate actionable insights and segmentation-focused reporting.",
+    image: "/api/placeholder/400/300",
+    videoPath: "Demo/demo.mp4",
+    videoPoster: "/api/placeholder/400/300",
+    techStack: ["Python", "SQL", "Power BI", "EDA", "Data Cleaning"],
+    demoUrl: "#",
+    githubUrl: "https://github.com/samruddhi02004/customer-trends-data-analysis",
+    status: "Live"
+  },
+  {
+    id: 19,
+    title: "Retail Data Engineering Pipeline",
+    category: "Data Analytics",
+    description: "Developed an end-to-end ETL pipeline using Databricks and Spark to consolidate retail datasets into a lakehouse-style architecture. Implemented medallion-style ingestion and transformation flows and produced BI-ready outputs for reporting.",
+    image: "/api/placeholder/400/300",
+    videoPath: "Demo/demo.mp4",
+    videoPoster: "/api/placeholder/400/300",
+    techStack: ["Databricks", "PySpark", "Python", "SQL", "Amazon S3"],
+    demoUrl: "#",
+    githubUrl: "https://github.com/samruddhi02004/retail-data-engineering-pipeline",
+    status: "Live"
+  },
+  {
+    id: 20,
+    title: "SQL Pizza Sales Analytics",
+    category: "Data Analytics",
+    description: "Performed end-to-end pizza sales analysis using SQL joins, aggregations, subqueries, and KPI metrics. Generated analytical reports on revenue contribution, order trends, category performance, and top-selling items to identify growth opportunities.",
+    image: "/api/placeholder/400/300",
+    videoPath: "Demo/demo.mp4",
+    videoPoster: "/api/placeholder/400/300",
+    techStack: ["SQL", "MySQL", "Power BI", "KPI Analysis", "Reporting"],
+    demoUrl: "#",
+    githubUrl: "https://github.com/samruddhi02004/sql-pizza-sales-analytics",
+    status: "Live"
   }
 ];
 
